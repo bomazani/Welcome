@@ -1,0 +1,61 @@
+import React, { Component } from 'react';
+
+class Contact extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            submitted: false,
+            formData: {
+                firstName: '',
+                lastName: ''    
+            }
+        };
+    }
+
+    handleChange = (event) => {
+        const formData = {...this.state.formData};
+        formData[event.target.name] = event.target.value;
+
+        // below is the same as  this.setState({ formData: formData })
+        this.setState({ formData });
+        }
+
+    render() {
+        return (
+            <div className='Contact'>
+                <form>
+                    <div>
+                        <label htmlFor="firstName">First name</label>
+                        <input 
+                            type='text' 
+                            name="firstName" 
+                            value={this.state.formData.firstName} 
+                            onChange={this.handleChange} 
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="lastName">Last name</label>
+                        <input 
+                            type='text' 
+                            name="lastName" 
+                            value={this.state.formData.lastName} 
+                            onChange={this.handleChange}
+                        />
+                    </div>
+
+                    <button>Submit Form</button>
+                </form>
+                <div>
+                    {this.state.formData.firstName}
+                    <br />
+                    {this.state.formData.lastName}
+                </div>
+
+            </div>
+        );
+    }
+}
+
+export default Contact
