@@ -21,10 +21,40 @@ class Contact extends Component {
         this.setState({ formData });
         }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        this.setState({
+            submitted: true
+        });
+    }
+
+    resetForm = (event) => {
+        event.preventDefault();
+
+        this.setState({
+            submitted: false,
+            formData: {
+                firstName: '',
+                lastName: ''    
+            }
+        });
+    }
+
     render() {
+        if (this.state.submitted) {
+            return (
+                <div className="Contact">
+                    <p>Thank you, {this.state.formData.firstName}, for submitting the form.</p>
+                    <button onClick={this.resetForm}>Reset Form</button>
+                </div>
+                
+            )
+        }
+
         return (
             <div className='Contact'>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div>
                         <label htmlFor="firstName">First name</label>
                         <input 
