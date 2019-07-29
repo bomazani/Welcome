@@ -1,91 +1,91 @@
 import React, { Component } from 'react';
 
 class Contact extends Component {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            submitted: false,
-            formData: {
-                firstName: '',
-                lastName: ''    
-            }
-        };
+    this.state = {
+      submitted: false,
+      formData: {
+        firstName: '',
+        lastName: ''
+      }
+    };
+  }
+
+  handleChange = event => {
+    const formData = { ...this.state.formData };
+    formData[event.target.name] = event.target.value;
+
+    // below is the same as  this.setState({ formData: formData })
+    this.setState({ formData });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    this.setState({
+      submitted: true
+    });
+  };
+
+  resetForm = event => {
+    event.preventDefault();
+
+    this.setState({
+      submitted: false,
+      formData: {
+        firstName: '',
+        lastName: ''
+      }
+    });
+  };
+
+  render() {
+    if (this.state.submitted) {
+      return (
+        <div className="Contact">
+          <p>
+            Thank you, {this.state.formData.firstName}, for submitting the form.
+          </p>
+          <button onClick={this.resetForm}>Reset Form</button>
+        </div>
+      );
     }
 
-    handleChange = (event) => {
-        const formData = {...this.state.formData};
-        formData[event.target.name] = event.target.value;
+    return (
+      <div className="Contact">
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="firstName">First name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={this.state.formData.firstName}
+              onChange={this.handleChange}
+            />
+          </div>
 
-        // below is the same as  this.setState({ formData: formData })
-        this.setState({ formData });
-        }
+          <div>
+            <label htmlFor="lastName">Last name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={this.state.formData.lastName}
+              onChange={this.handleChange}
+            />
+          </div>
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        this.setState({
-            submitted: true
-        });
-    }
-
-    resetForm = (event) => {
-        event.preventDefault();
-
-        this.setState({
-            submitted: false,
-            formData: {
-                firstName: '',
-                lastName: ''    
-            }
-        });
-    }
-
-    render() {
-        if (this.state.submitted) {
-            return (
-                <div className="Contact">
-                    <p>Thank you, {this.state.formData.firstName}, for submitting the form.</p>
-                    <button onClick={this.resetForm}>Reset Form</button>
-                </div>
-                
-            )
-        }
-
-        return (
-            <div className='Contact'>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label htmlFor="firstName">First name</label>
-                        <input 
-                            type='text' 
-                            name="firstName" 
-                            value={this.state.formData.firstName} 
-                            onChange={this.handleChange} 
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="lastName">Last name</label>
-                        <input 
-                            type='text' 
-                            name="lastName" 
-                            value={this.state.formData.lastName} 
-                            onChange={this.handleChange}
-                        />
-                    </div>
-
-                    <button>Submit Form</button>
-                </form>
-                <div>
-                    {this.state.formData.firstName}
-                    <br />
-                    {this.state.formData.lastName}
-                </div>
-
-            </div>
-        );
-    }
+          <button>Submit Form</button>
+        </form>
+        <div>
+          {this.state.formData.firstName}
+          <br />
+          {this.state.formData.lastName}
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Contact
+export default Contact;
